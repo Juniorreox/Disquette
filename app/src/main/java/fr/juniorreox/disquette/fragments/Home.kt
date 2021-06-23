@@ -45,7 +45,6 @@ class Home(
             load(refresh.isRefreshing)
 
             Handler().postDelayed({
-                //chercher une alternative au handler() au cas ou il y a un disfonctionnement
                 refresh.isRefreshing = false
                 verticalRecyclerView.adapter = adapter
                 Log.d(ContentValues.TAG, "Refresh: nombre de disque dans la liste:${disqueList.size}")
