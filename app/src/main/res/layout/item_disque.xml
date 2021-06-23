@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/opacity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/form_disque"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:cardCornerRadius="40dp"
+        app:cardElevation="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/form_disque_control"
+            android:layout_width="260dp"
+            android:layout_height="match_parent"
+            android:background="@color/disque_color"
+            android:minHeight="270dp"
+            android:orientation="vertical"
+
+            >
+
+            <!-- Revoir la presentation du contenu -->
+            <TextView
+                android:id="@+id/disque"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/baloo"
+                android:text="@string/description_disque"
+                android:textSize="30sp"
+                android:textStyle="bold"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.49"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.05" />
+
+            <!-- signaler un disque-->
+            <!--
+            <ImageView
+                android:id="@+id/warning"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/exclamation"
+
+                app:layout_constraintBottom_toTopOf="@+id/contain"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.884"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nofavori"
+                app:layout_constraintVertical_bias="0.229" />
+    -->
+
+            <ImageView
+                android:id="@+id/nofavori"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="44dp"
+
+                android:src="@drawable/heartnotfavori"
+                app:layout_constraintBottom_toTopOf="@+id/contain"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/disque"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.308" />
+
+            <TextView
+                android:id="@+id/contain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textSize="18sp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="30dp"
+                android:fontFamily="@font/baloo"
+                android:gravity="center"
+                android:inputType="textLongMessage|textMultiLine"
+                android:maxWidth="240dp"
+                android:minWidth="20dp"
+                android:text="@string/container_disque"
+
+                android:textColor="@color/text_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/disque"
+                app:layout_constraintVertical_bias="0.333"
+                tools:ignore="TextViewEdits" />
+
+            <ImageView
+                android:id="@+id/like"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/like"
+
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/contain"
+                app:layout_constraintVertical_bias="0.325" />
+
+            <ImageView
+                android:id="@+id/dislike"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/dislike"
+
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.818"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/contain"
+                app:layout_constraintVertical_bias="0.325" />
+
+            <TextView
+                android:id="@+id/view_disque_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/baloo"
+                android:text="@string/description_disque_count"
+                android:textSize="30sp"
+
+
+                app:layout_constraintBottom_toTopOf="@+id/contain"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/disque"
+                app:layout_constraintVertical_bias="0.645" />
+
+            <TextView
+                android:id="@+id/view_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/average"
+                android:gravity="center"
+
+                android:layout_marginBottom="5dp"
+                android:text="@string/disque_like"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.251"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/like"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/view_dislike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/average"
+                android:gravity="center"
+
+                android:layout_marginBottom="5dp"
+                android:text="@string/disque_dislike"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.774"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dislike"
+                app:layout_constraintVertical_bias="0.0" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

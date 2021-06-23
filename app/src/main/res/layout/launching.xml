@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Linear_launching"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical"
+    tools:context=".launching">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/first_line"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
+            android:background="@color/menu_color" />
+
+        <View
+            android:id="@+id/second_line"
+            android:layout_width="20dp"
+            android:layout_height="150dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toStartOf="@id/first_line"
+            android:background="@color/disque_color" />
+
+        <View
+            android:id="@+id/third_line"
+            android:layout_width="20dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toStartOf="@id/second_line"
+            android:background="@color/text_color" />
+
+        <View
+            android:id="@+id/fourth_line"
+            android:layout_width="20dp"
+            android:layout_height="250dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toStartOf="@id/third_line"
+            android:background="@color/grey" />
+
+        <View
+            android:id="@+id/fifth_line"
+            android:layout_width="20dp"
+            android:layout_height="200dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toStartOf="@id/fourth_line"
+            android:background="@color/menu_color" />
+
+        <View
+            android:id="@+id/sixth_line"
+            android:layout_width="20dp"
+            android:layout_height="120dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toStartOf="@id/fifth_line"
+            android:background="@color/disque_color" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp">
+
+        <ImageView
+            android:id="@+id/app_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="149dp"
+            android:layout_marginTop="-2dp"
+            android:layout_marginEnd="161dp"
+            android:contentDescription="@string/name_disque"
+            android:src="@drawable/vinyl" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

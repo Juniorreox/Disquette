@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/vertical_recycler_view_chat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="48dp"
+        android:orientation="vertical"
+        android:background="@color/black"/>
+
+    <LinearLayout
+        android:id="@+id/Linear_chat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="52dp">
+
+        <EditText
+            android:id="@+id/enter_message"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:ems="10"
+
+            android:autofillHints="@string/enter_your_message"
+            android:background="@drawable/et_style"
+            android:hint="@string/enter_your_message"
+            android:inputType="textLongMessage|textMultiLine"
+            android:maxLength="500"
+            android:textColor="@color/text_color"
+            android:textColorHint="@color/menu_color"
+            android:padding="10dp"/>
+
+        <ImageView
+            android:id="@+id/add_message"
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+            android:contentDescription="@string/validate_message"
+            android:src="@drawable/validate"
+            />
+    </LinearLayout>
+
+
+</RelativeLayout>

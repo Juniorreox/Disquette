@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">Disquette</string>
+
+    <!-- Home -->
+    <string name="description_disque">Disque</string>
+    <string name="container_disque">Une disquette a nous proposer ?</string>
+    <string name="description_disque_count">1</string>
+    <string name="disque_like">0</string>
+    <string name="disque_dislike">0</string>
+    <string name="bottom_home">home</string>
+    <string name="bottom_favori">favori</string>
+    <string name="bottom_new">new</string>
+
+
+    <!-- Profile -->
+    <string name="menu_profile">Profil :</string>
+    <string name="menu_profile_user_name_input">@string/menu_profile_user_name</string>
+    <string name="menu_profile_email_input">E-mail</string>
+    <string name="menu_profile_password_input">Mot de passe</string>
+    <string-array name="menu_profile_sex_input">
+        <item>Homme</item>
+        <item>Femme</item>
+    </string-array>
+    <string name="menu_profile_save_button">Enregistrer</string>
+    <string name="menu_profile_validate_button">Valider</string>
+    <string name="menu_profile_register">Inscription</string>
+    <string name="menu_profile_log_in">Se connecter</string>
+    <string name="menu_profile_user_name">Pseudo</string>
+
+    <!-- A revoir -->
+    <string name="menu_profile_Terms">ReoX</string>
+    <string name="name_disque">Disque</string>
+    <string name="add_disc">ajoutez disquette</string>
+    <string name="line">My text with lines above and below</string>
+
+
+    <!-- Ajouter disquette pop up -->
+    <string name="contenu_disque_input">@string/container_disque</string>
+    <string name="name_chat">chat</string>
+    <string name="name_user">user</string>
+    <string name="send_the_disc">Send the disc</string>
+    <string name="enter_your_message">Entrez votre message</string>
+    <string name="validate_message">Validate message</string>
+
+
+</resources>
