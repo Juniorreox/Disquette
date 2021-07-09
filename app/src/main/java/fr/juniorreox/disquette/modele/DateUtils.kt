@@ -5,7 +5,7 @@ import java.util.*
 
 object DateUtils {
     fun fromMillisToTimeString(millis: Long) : String {
-        val format = SimpleDateFormat("hh:mm a", Locale.getDefault())
+        val format = SimpleDateFormat("HH:mm", Locale.FRANCE)
         return format.format(millis)
     }
 }

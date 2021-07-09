@@ -47,11 +47,13 @@ class chatAdapter(
         private var messageText: TextView = view.findViewById(R.id.content_message_r)
         //private var userText: TextView = view.txtOtherUser
         private var timeText: TextView = view.findViewById(R.id.time_message_r)
+        private var sender: TextView = view.findViewById(R.id.sendername)
 
         override fun bind(message: messageModele) {
             messageText.text = message.message
             //userText.text = message.uId
             timeText.text = message.time?.let { DateUtils.fromMillisToTimeString(it) }
+            sender.text = message.sender
         }
     }
 

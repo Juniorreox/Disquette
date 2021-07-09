@@ -15,8 +15,11 @@ import com.google.firebase.database.ValueEventListener
 import fr.juniorreox.disquette.R
 import fr.juniorreox.disquette.adapter.chatAdapter
 import fr.juniorreox.disquette.modele.messageModele
+import fr.juniorreox.disquette.modele.userModele
+import fr.juniorreox.disquette.repository.disqueRepository
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.User
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.databaseChat
+import fr.juniorreox.disquette.repository.disqueRepository.singleton.thisUser
 import java.util.*
 
 class Chat : Fragment() {
@@ -30,7 +33,24 @@ class Chat : Fragment() {
     ): View? {
         val view = layoutInflater.inflate(R.layout.fragment_chat, container, false)
 
+        User.uid?.let {
+            disqueRepository.singleton.databaseUser.child(it).addValueEventListener(object :
+                ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
 
+                        val name =  snapshot.getValue(userModele::class.java)
+                        if (name != null) {
+                            thisUser = name// faire gaff
+                        }
+
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    //TODO("Not yet implemented")
+                }
+            })
+        }
 
 
         val verticalRecyclerView = view.findViewById<RecyclerView>(R.id.vertical_recycler_view_chat)
@@ -73,7 +93,8 @@ class Chat : Fragment() {
                 val message = messageModele(
                     User.uid!!,
                     txtMessage.text.toString(),
-                    Calendar.getInstance().timeInMillis
+                    Calendar.getInstance().timeInMillis,
+                    thisUser.userName
                 )
                 txtMessage.setText("")
                 databaseChat.push().setValue(message)

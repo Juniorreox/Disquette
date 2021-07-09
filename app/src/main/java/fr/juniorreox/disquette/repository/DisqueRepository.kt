@@ -68,6 +68,9 @@ class disqueRepository {
 
         //l'identifiant du derniere element de la liste de disque utilisateur
         var lastElement: Int = 0
+
+        //Le nom d'utilisateur
+        lateinit var thisUser :userModele
     }
 
 
@@ -176,6 +179,8 @@ class disqueRepository {
             }
         })
     }
+
+
     //incremente le nombre de disque sur la base de donnee
     private fun incDiscNumber() {
         discNumber()

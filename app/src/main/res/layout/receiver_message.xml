@@ -18,7 +18,7 @@
     >
 
     <TextView
-        android:id="@+id/receivername"
+        android:id="@+id/sendername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -51,11 +51,12 @@
         android:maxWidth="270dp"
         android:minWidth="50dp"
         android:text="TextView"
+        android:padding="5dp"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/time_message_r"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.281"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/receivername"
+        app:layout_constraintTop_toBottomOf="@+id/sendername"
         app:layout_constraintVertical_bias="0.334" />
 </androidx.constraintlayout.widget.ConstraintLayout>
