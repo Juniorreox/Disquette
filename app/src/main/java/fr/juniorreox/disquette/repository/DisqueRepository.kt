@@ -24,6 +24,7 @@ import fr.juniorreox.disquette.repository.disqueRepository.singleton.number
 import fr.juniorreox.disquette.modele.checkDisc
 import fr.juniorreox.disquette.modele.userModele
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.databaseChat
+import java.util.*
 
 
 class disqueRepository {
@@ -196,7 +197,7 @@ class disqueRepository {
         users.uid?.let { databaseUser.child(it).setValue(users) }
 
     fun addUser() {
-        val user = userModele(User.currentUser?.uid)
+        val user = userModele(User.currentUser?.uid, Calendar.getInstance().timeInMillis)
         insertuser(user)
         //recuperer le contenu des differents disques et les ajouter dans l'espace disque utilisitateur avec les valeur par defaut du disque
         Handler().postDelayed({
@@ -205,7 +206,7 @@ class disqueRepository {
 
     }
 
-    private fun addListDisc() {
+    fun addListDisc() {
         //je recupere la liste de tout les contenu des disques ajouter dans le child admin sur firebase
         databaseDisc.child("admin").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {

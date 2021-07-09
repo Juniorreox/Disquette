@@ -8,13 +8,26 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import fr.juniorreox.disquette.*
 import fr.juniorreox.disquette.modele.disqueModele
+import fr.juniorreox.disquette.modele.messageModele
 import fr.juniorreox.disquette.repository.disqueRepository
 
 
 class disqueAdapter(
-        //val context : MainActivity,//utile pour l'utilisation de glide
-        private var disqueList : List<disqueModele>
 ) : RecyclerView.Adapter<disqueAdapter.ViewHolder>(){
+
+    private var list =  ArrayList<disqueModele>()
+
+    fun addDisque(disc: disqueModele){
+        list.add(disc)
+        notifyDataSetChanged()
+    }
+
+    fun clear(){
+        list.clear()
+    }
+    fun sort(){
+        list.sortedByDescending { it.identifiant }
+    }
 
     //Boite pour ranger tout les composants a controler
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -40,11 +53,11 @@ class disqueAdapter(
         return ViewHolder(view)
     }
     // Le nombre de disque afficher dans la liste deroulante
-    override fun getItemCount(): Int = disqueList.size
+    override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //Recuperer les information du disque en fonction de la position
-        val currentDisc = disqueList[position]
+        val currentDisc = list[position]
 
         //Recuperer le repository
         val repo = disqueRepository()
@@ -186,10 +199,4 @@ class disqueAdapter(
 
 
     }// fin onBindViewHolder
-
-    fun setDiscListItems(list :List<disqueModele>){
-        disqueList = list
-
-    }
-
 }

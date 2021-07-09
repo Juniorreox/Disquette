@@ -161,8 +161,8 @@ class launching: AppCompatActivity() {
     private fun updateUI(currentUser: FirebaseUser?) {
         if (currentUser != null) {
 
-            val repo = disqueRepository()
-            repo.getData()
+            //val repo = disqueRepository()
+            //repo.getData()
 
             if(disqueList.size != 0){
                 val intent = Intent(this, MainActivity::class.java)
