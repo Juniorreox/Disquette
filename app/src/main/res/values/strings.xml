@@ -41,6 +41,10 @@
     <string name="send_the_disc">Send the disc</string>
     <string name="enter_your_message">Entrez votre message</string>
     <string name="validate_message">Validate message</string>
+    <string name="e_mail">E-mail</string>
+    <string name="mot_de_passe">Mot de passe</string>
+    <string name="pseudo">Pseudo</string>
+    <string name="se_connecter">Se connecter?</string>
 
 
 </resources>

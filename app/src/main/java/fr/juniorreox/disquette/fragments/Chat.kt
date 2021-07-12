@@ -54,7 +54,11 @@ class Chat : Fragment() {
 
 
         val verticalRecyclerView = view.findViewById<RecyclerView>(R.id.vertical_recycler_view_chat)
-        verticalRecyclerView.layoutManager = LinearLayoutManager(activity)
+        //ligne pour commencer le chat par le bas du recycler
+        val llm = LinearLayoutManager(activity)
+        llm.stackFromEnd = true     // items gravity sticks to bottom
+        llm.reverseLayout = false   // item list sorting (new messages start from the bottom)
+        verticalRecyclerView.layoutManager = llm
 
         val btnSend = view.findViewById<ImageView>(R.id.add_message)
         val txtMessage = view.findViewById<EditText>(R.id.enter_message)

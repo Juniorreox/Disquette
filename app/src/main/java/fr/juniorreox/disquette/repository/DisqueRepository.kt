@@ -202,7 +202,7 @@ class disqueRepository {
         users.uid?.let { databaseUser.child(it).setValue(users) }
 
     fun addUser() {
-        val user = userModele(User.currentUser?.uid, Calendar.getInstance().timeInMillis)
+        val user = userModele(User.currentUser?.uid)
         insertuser(user)
         //recuperer le contenu des differents disques et les ajouter dans l'espace disque utilisitateur avec les valeur par defaut du disque
         Handler().postDelayed({

@@ -7,6 +7,69 @@
     android:background="@color/background_color"
     android:id="@+id/constraint_fragment_profile">
 
+    <EditText
+        android:id="@+id/input_pseudo"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/input_connection"
+        android:hint="@string/pseudo"
+        android:inputType="textLongMessage"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profil"
+        app:layout_constraintVertical_bias="0.022"
+        tools:ignore="LabelFor"
+        android:autofillHints="Nom d'utilisateur" />
+
+    <EditText
+        android:id="@+id/input_email"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/input_connection"
+        app:layout_constraintEnd_toEndOf="@+id/input_pseudo"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/input_pseudo"
+        app:layout_constraintTop_toBottomOf="@+id/input_pseudo"
+        android:hint="@string/e_mail"
+        android:padding="10dp"
+        android:inputType="textEmailAddress"
+        tools:ignore="LabelFor"
+        android:autofillHints="E-mail"/>
+
+    <EditText
+        android:id="@+id/input_pass"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/input_connection"
+        app:layout_constraintEnd_toEndOf="@+id/input_pseudo"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/input_pseudo"
+        app:layout_constraintTop_toBottomOf="@+id/input_email"
+        android:hint="@string/mot_de_passe"
+        android:padding="10dp"
+        android:inputType="textPassword"
+        tools:ignore="LabelFor"
+        android:autofillHints="Mot de passe" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/se_connecter"
+        app:layout_constraintBottom_toTopOf="@+id/register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.806"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_pass"
+        app:layout_constraintVertical_bias="0.236" />
+
     <TextView
         android:id="@+id/profil"
         android:fontFamily="@font/baloo"
@@ -25,6 +88,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023" />
 
+
     <Button
         android:id="@+id/register"
         android:layout_width="200dp"
@@ -35,27 +99,10 @@
 
         app:cornerRadius="@android:dimen/notification_large_icon_width"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/log_in"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/log_in"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.254" />
-
-    <Button
-        android:id="@+id/log_in"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:backgroundTint="@color/menu_color"
-        android:text="@string/menu_profile_log_in"
-        android:textAllCaps="false"
-
-        app:cornerRadius="@android:dimen/notification_large_icon_width"
-        app:layout_constraintBottom_toTopOf="@+id/register"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.831" />
+        app:layout_constraintEnd_toEndOf="@+id/input_pseudo"
+        app:layout_constraintStart_toStartOf="@+id/input_pseudo"
+        app:layout_constraintTop_toBottomOf="@+id/input_pass"
+        app:layout_constraintVertical_bias="0.159" />
 
     <TextView
         android:id="@+id/tag"
