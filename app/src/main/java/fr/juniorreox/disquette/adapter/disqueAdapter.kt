@@ -17,16 +17,27 @@ class disqueAdapter(
 
     private var list =  ArrayList<disqueModele>()
 
+    interface OnItemClick {
+        fun onClick(bean: disqueModele, type: Int)
+    }
+
     fun addDisque(disc: disqueModele){
         list.add(disc)
         notifyDataSetChanged()
     }
 
+    fun removeItem(position: Int) {
+        list.removeAt(position)
+        notifyDataSetChanged()
+    }
+
     fun clear(){
         list.clear()
+        notifyDataSetChanged()
     }
     fun sort(){
         list.sortedByDescending { it.identifiant }
+        notifyDataSetChanged()
     }
 
     //Boite pour ranger tout les composants a controler

@@ -71,6 +71,7 @@ class disqueRepository {
 
         //Le nom d'utilisateur
         lateinit var thisUser :userModele
+
     }
 
 
@@ -205,10 +206,11 @@ class disqueRepository {
         val user = userModele(User.currentUser?.uid)
         insertuser(user)
         //recuperer le contenu des differents disques et les ajouter dans l'espace disque utilisitateur avec les valeur par defaut du disque
+        /*
         Handler().postDelayed({
             addListDisc()
         }, 4000)
-
+*/
     }
 
     fun addListDisc() {

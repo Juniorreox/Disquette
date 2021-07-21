@@ -17,6 +17,9 @@ class pagerAdapter(
     fun add(fragmentBuilder: FragmentBuilder) {
         fragmentBuilders.add(fragmentBuilder)
     }
+    fun remove(position: Int){
+        fragmentBuilders.removeAt(position)
+    }
 
     /**
      * Dynamic replacement of fragments

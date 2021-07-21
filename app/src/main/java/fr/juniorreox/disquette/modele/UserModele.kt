@@ -7,5 +7,6 @@ class userModele (
         var userName: String? = "pseudo 0",
         var mail: String? = "no mail",
         var password : String? ="no pass",
-        var profile : String? = ""
+        var profile : String? = "",
+        var hasSigned : Boolean = false
         )

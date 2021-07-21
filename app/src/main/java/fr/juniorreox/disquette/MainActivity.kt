@@ -1,26 +1,29 @@
 package fr.juniorreox.disquette
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import fr.juniorreox.disquette.adapter.pagerAdapter
 import fr.juniorreox.disquette.fragments.Chat
 import fr.juniorreox.disquette.fragments.Home
-import fr.juniorreox.disquette.fragments.profileNotConnected
+import fr.juniorreox.disquette.fragments.profile
+import fr.juniorreox.disquette.fragments.profile_connected
+import fr.juniorreox.disquette.repository.disqueRepository
+import fr.juniorreox.disquette.repository.disqueRepository.singleton.User
+import fr.juniorreox.disquette.repository.disqueRepository.singleton.databaseUser
 
 
 class MainActivity : AppCompatActivity() {
@@ -77,7 +80,47 @@ class MainActivity : AppCompatActivity() {
         pagerView = findViewById(R.id.fragment_containner)
         tablayout = findViewById(R.id.tabview)
         tablayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(p0: TabLayout.Tab?) {
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                if(tab?.position ==0){
+                    showSystemUI()
+                    chat.setImageResource(R.drawable.mountain_on)
+                    ajouterDisquette.visibility = View.INVISIBLE
+
+                    home.setOnClickListener{
+                        pagerView.currentItem = 1
+                    }
+
+                    user.setOnClickListener{
+                        pagerView.currentItem = 2
+                    }
+                }
+
+                if(tab?.position ==1){
+                    hideSystemUI()
+                    ajouterDisquette.visibility = View.VISIBLE
+
+                    chat.setOnClickListener{
+                        pagerView.currentItem = 0
+                    }
+
+                    user.setOnClickListener{
+                        pagerView.currentItem = 2
+                    }
+                }
+
+                if(tab?.position ==2){
+                    hideSystemUI()
+                    user.setImageResource(R.drawable.usercolor)
+                    ajouterDisquette.visibility = View.INVISIBLE
+
+                    home.setOnClickListener{
+                        pagerView.currentItem = 1
+                    }
+
+                    chat.setOnClickListener{
+                        pagerView.currentItem = 0
+                    }
+                }
             }
 
             override fun onTabUnselected(p0: TabLayout.Tab?) {
@@ -140,7 +183,32 @@ class MainActivity : AppCompatActivity() {
 
         adapter.add { Chat() }//position 0
         adapter.add { Home(this) }//position 1
-        adapter.add { profileNotConnected() }//position 2
+        adapter.add { profile() }//position 2
+
+
+        val firebaseUserUid = User.currentUser!!.uid
+
+        databaseUser.child(firebaseUserUid).child("hasSigned").addValueEventListener(object :
+            ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                    val state = snapshot.getValue(Boolean::class.java)
+                    if (state != null) {
+                        if(state){
+                            adapter.remove(2)
+                            adapter.add { profile_connected() }//position 2
+                        }else{
+                            adapter.remove(2)
+                            adapter.add { profile() }//position 2
+                        }
+                    }
+
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                adapter.add { profile() }//position 2
+            }
+        })
 
         pagerView.adapter = adapter
         pagerView.currentItem = 1 // position du fragment de depart: affichage horizontale [0 ; 1 ; 2 ]

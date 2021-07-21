@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import fr.juniorreox.disquette.modele.userModele
 import fr.juniorreox.disquette.repository.disqueRepository
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.User
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.disqueList
@@ -26,6 +27,7 @@ class launching: AppCompatActivity() {
     private val SPLASH_TIME_OUT: Long = 6000
     //token d'authentification
     private lateinit var auth: FirebaseAuth
+    /*
     //animations
     private lateinit var topAnimation : Animation
     private lateinit var topAnimation2 : Animation
@@ -45,7 +47,7 @@ class launching: AppCompatActivity() {
     private lateinit var sixth : View
     private lateinit var logo : ImageView
     private lateinit var tag : TextView
-
+    */
 
 
 
@@ -58,7 +60,7 @@ class launching: AppCompatActivity() {
     //a la creation
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.launching) //initialiser les lateinit var apres cette ligne de code, ellepermet d avoir acces aux element contenu dans le layout utilise par leurs identifiants
+        setContentView(R.layout.launching) //initialiser les lateinit var apres cette ligne de code, elle permet d avoir acces aux element contenu dans le layout utilise par leurs identifiants
         @Suppress("DEPRECATION") //supprime la barre des methodes "depreciees"
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val controller = window.insetsController
@@ -71,7 +73,7 @@ class launching: AppCompatActivity() {
             window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         }
         //cette activite est faite pour le chargement de la liste des disques, c'est pour cela qu'il utilise launching.xml
-
+/*
         //Les animations
         topAnimation= AnimationUtils.loadAnimation(this,R.anim.top_animation)
         topAnimation2= AnimationUtils.loadAnimation(this,R.anim.top_animation2)
@@ -104,7 +106,7 @@ class launching: AppCompatActivity() {
         //logo.startAnimation(middleAnimation)
 
         //tag.startAnimation(bottomAnimation)
-
+*/
 
     }
 
@@ -160,16 +162,7 @@ class launching: AppCompatActivity() {
     //gestion des utilisateurs
     private fun updateUI(currentUser: FirebaseUser?) {
         if (currentUser != null) {
-
-            //val repo = disqueRepository()
-            //repo.getData()
-
-            if(disqueList.size != 0){
-                val intent = Intent(this, MainActivity::class.java)
-                //val intent = Intent(this, testActivity::class.java)
-                startActivity(intent)
-                finish()
-            }else{
+/*
                 Handler().postDelayed({
                     val intent = Intent(this, MainActivity::class.java)
                     //val intent = Intent(this, testActivity::class.java)
@@ -178,11 +171,12 @@ class launching: AppCompatActivity() {
                     //si l'utilisateur n'est pas null charger sa version de la liste des disques
                     Toast.makeText(this, "U Signed In successfully", Toast.LENGTH_LONG).show()
                     //startActivity(Intent(this, AnotherActivity::class.java))
-                }, SPLASH_TIME_OUT)
-            }
+                }, SPLASH_TIME_OUT)*/
 
-
-
+            val intent = Intent(this, MainActivity::class.java)
+            //val intent = Intent(this, testActivity::class.java)
+            startActivity(intent)
+            finish()
 
         } else {
             //ici on cree un compte anonyme pour tout nouvelle utilisateur
@@ -191,12 +185,21 @@ class launching: AppCompatActivity() {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("TAG", "signInAnonymously:success")
-                        val repo = disqueRepository()
-                        repo.addUser()
-                        val current = User.currentUser
-                        //on refait le teste d'identifiant
+                        val user = userModele(User.currentUser?.uid)
+                        user.uid?.let { disqueRepository.singleton.databaseUser.child(it).setValue(user).addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val repo = disqueRepository()
+                                repo.addListDisc()
+                                val current = User.currentUser
+                                //on refait le teste d'identifiant
+                                Toast.makeText(this,"Vous venez d'etre enregistrer", Toast.LENGTH_LONG).show()
+                                updateUI(current)
 
-                        updateUI(current)
+                            }
+                        } }
+
+
+
 
                     } else {
                         // If sign in fails, display a message to the user.

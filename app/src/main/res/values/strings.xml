@@ -45,6 +45,12 @@
     <string name="mot_de_passe">Mot de passe</string>
     <string name="pseudo">Pseudo</string>
     <string name="se_connecter">Se connecter?</string>
+    <string name="back_to_the_profil_fragment">Back to the profil fragment</string>
+    <string name="use_name">Use Name</string>
+    <string name="deconnexion">Deconnexion</string>
+    <string name="charger_image">charger image</string>
+    <string name="voulez_vous_changer_votre_photo_de_profil">Voulez-vous changer votre photo de profil?</string>
+    <string name="valide">Valide</string>
 
 
 </resources>

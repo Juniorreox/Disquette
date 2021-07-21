@@ -1,6 +1,8 @@
 package fr.juniorreox.disquette.fragments
 
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -85,7 +87,7 @@ class Chat : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
             }
 
         })
@@ -93,6 +95,12 @@ class Chat : Fragment() {
         verticalRecyclerView.adapter = adapter
 
         btnSend.setOnClickListener {
+            /*
+            if(/* pas connecte*/){
+                //afficher un message vous devez etre connecter
+            }else{
+                //les lignes qui suivent
+            }*/
             if (txtMessage.text.isNotEmpty()) {
                 val message = messageModele(
                     User.uid!!,

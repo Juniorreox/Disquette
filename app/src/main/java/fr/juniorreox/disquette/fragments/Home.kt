@@ -50,8 +50,7 @@ class Home(
                 ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) {
                     // Failed to read value
-                    Log.w(
-                        ContentValues.TAG, "Failed to read value.", p0.toException())
+                    Log.w(ContentValues.TAG, "Failed to read value.", p0.toException())
                 }
 
                 override fun onDataChange(p0: DataSnapshot) {
@@ -79,14 +78,14 @@ class Home(
                                 adapter.addDisque(disque)
                             }
                         }
-                        adapter.sort()
-                        adapter.notifyDataSetChanged()
+
                     }
 
                 }
 
             })
         }
+        adapter.sort()
         verticalRecyclerView.adapter = adapter // ?
 
 

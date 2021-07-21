@@ -11,10 +11,10 @@
         android:roundIcon="@drawable/vinyl"
         android:supportsRtl="true"
         android:theme="@style/Theme.Disquette">
-        <activity android:name=".testActivity">
+        <activity android:name=".Register_activity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Login_activity" />
 
-        </activity>
-        <activity android:name=".MainActivity"></activity>
         <activity android:name=".launching">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
