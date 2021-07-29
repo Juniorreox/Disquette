@@ -9,79 +9,84 @@
 
     <ImageView
         android:id="@+id/back_register"
-        android:layout_width="40dp"
+        android:layout_width="30dp"
         android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:contentDescription="@string/back_to_the_profil_fragment"
         android:src="@drawable/back_button"
-        app:layout_constraintBottom_toTopOf="@+id/input_pseudo"
-        app:layout_constraintEnd_toStartOf="@+id/profil"
-        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.23"
-        android:contentDescription="@string/back_to_the_profil_fragment" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/input_pseudo"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/username_input_layout"
         android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="96dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/input_connection"
-        android:hint="@string/pseudo"
-        android:inputType="textLongMessage"
-        android:padding="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="468dp"
+        android:layout_marginTop="20dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="15"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profil"
-        app:layout_constraintVertical_bias="0.022"
-        tools:ignore="LabelFor"
-        android:autofillHints="Nom d'utilisateur" />
+        app:layout_constraintTop_toBottomOf="@+id/profil">
 
-    <EditText
-        android:id="@+id/input_email"
+        <EditText
+            android:id="@+id/input_pseudo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="Nom d'utilisateur"
+            android:background="@drawable/input_connection"
+            android:hint="@string/pseudo"
+            android:inputType="textLongMessage"
+             />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/mail_input_layout"
         android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/input_connection"
-        app:layout_constraintEnd_toEndOf="@+id/input_pseudo"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/input_pseudo"
-        app:layout_constraintTop_toBottomOf="@+id/input_pseudo"
-        android:hint="@string/e_mail"
-        android:padding="10dp"
-        android:inputType="textEmailAddress"
-        tools:ignore="LabelFor"
-        android:autofillHints="E-mail"/>
-
-    <EditText
-        android:id="@+id/input_pass"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/input_connection"
-        app:layout_constraintEnd_toEndOf="@+id/input_pseudo"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/input_pseudo"
-        app:layout_constraintTop_toBottomOf="@+id/input_email"
-        android:hint="@string/mot_de_passe"
-        android:padding="10dp"
-        android:inputType="textPassword"
-        tools:ignore="LabelFor"
-        android:autofillHints="Mot de passe" />
-
-    <TextView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/se_connecter"
-        app:layout_constraintBottom_toTopOf="@+id/register"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.806"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_pass"
-        app:layout_constraintVertical_bias="0.236" />
+        android:layout_marginTop="50dp"
+        android:background="@drawable/input_connection"
+        app:layout_constraintEnd_toEndOf="@+id/username_input_layout"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/username_input_layout"
+        app:layout_constraintTop_toBottomOf="@+id/username_input_layout">
+
+
+        <EditText
+            android:id="@+id/input_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="E-mail"
+            android:background="@drawable/input_connection"
+            android:hint="@string/e_mail"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password_input_layout"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/input_connection"
+        app:layout_constraintEnd_toEndOf="@+id/username_input_layout"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/username_input_layout"
+        app:layout_constraintTop_toBottomOf="@+id/mail_input_layout">
+
+
+        <EditText
+            android:id="@+id/input_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="Mot de passe"
+            android:background="@drawable/input_connection"
+            android:hint="@string/mot_de_passe"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/profil"
@@ -91,8 +96,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:text="@string/menu_profile"
-        android:textSize="25sp"
+        android:text="Inscription"
+        android:textSize="30sp"
         android:textStyle="bold"
 
         app:layout_constraintBottom_toBottomOf="parent"
@@ -106,16 +111,15 @@
         android:id="@+id/register"
         android:layout_width="200dp"
         android:layout_height="50dp"
+        android:layout_marginTop="300dp"
         android:backgroundTint="@color/menu_color"
+
         android:text="@string/menu_profile_register"
         android:textAllCaps="false"
-
         app:cornerRadius="@android:dimen/notification_large_icon_width"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/input_pseudo"
-        app:layout_constraintStart_toStartOf="@+id/input_pseudo"
-        app:layout_constraintTop_toBottomOf="@+id/input_pass"
-        app:layout_constraintVertical_bias="0.159" />
+        app:layout_constraintEnd_toEndOf="@+id/username_input_layout"
+        app:layout_constraintStart_toStartOf="@+id/username_input_layout"
+        app:layout_constraintTop_toBottomOf="@+id/username_input_layout" />
 
     <TextView
         android:id="@+id/tag"

@@ -8,8 +8,13 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.EmailAuthProvider
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import fr.juniorreox.disquette.repository.disqueRepository
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.User
+import fr.juniorreox.disquette.repository.disqueRepository.singleton.databaseDisc
+import fr.juniorreox.disquette.repository.disqueRepository.singleton.databaseUser
+import fr.juniorreox.disquette.repository.disqueRepository.singleton.thisUser
 
 class Login_activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,11 +44,18 @@ class Login_activity : AppCompatActivity() {
                 Toast.makeText(this,"S'il vous plait veuillez entrez un mot de passe", Toast.LENGTH_LONG).show()
 
             }else{
+                val holdUid = thisUser.uid
 
+                val user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+                user?.delete()
 
                 User.signInWithEmailAndPassword(email,pass).
                 addOnCompleteListener{task->
                     if(task.isSuccessful){
+                        if (holdUid != null) {
+                            databaseUser.child(holdUid).removeValue()
+                            databaseDisc.child(holdUid).removeValue()
+                        }
                         Toast.makeText(this,"Vous etes connectez", Toast.LENGTH_LONG).show()
                         val intent =  Intent(this,MainActivity::class.java)
                         startActivity(intent)

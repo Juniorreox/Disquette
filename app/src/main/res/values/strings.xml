@@ -24,7 +24,7 @@
     <string name="menu_profile_save_button">Enregistrer</string>
     <string name="menu_profile_validate_button">Valider</string>
     <string name="menu_profile_register">Inscription</string>
-    <string name="menu_profile_log_in">Se connecter</string>
+    <string name="menu_profile_log_in">Connexion</string>
     <string name="menu_profile_user_name">Pseudo</string>
 
     <!-- A revoir -->
@@ -51,6 +51,7 @@
     <string name="charger_image">charger image</string>
     <string name="voulez_vous_changer_votre_photo_de_profil">Voulez-vous changer votre photo de profil?</string>
     <string name="valide">Valide</string>
+    <string name="profile_picture">profile_picture</string>
 
 
 </resources>

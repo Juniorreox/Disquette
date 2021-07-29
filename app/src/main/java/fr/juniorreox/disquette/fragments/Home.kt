@@ -1,12 +1,15 @@
 package fr.juniorreox.disquette.fragments
 
 import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,6 +32,7 @@ class Home(
     private val context: MainActivity
 ) : Fragment() {
     private val adapter = disqueAdapter()
+    private lateinit var ajouterDisquette : ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,9 +42,18 @@ class Home(
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         val repo = disqueRepository()
 
+        ajouterDisquette = view.findViewById<ImageView>(R.id.add_image) //ajouter disque
+
+        //gestion de de l'ajout avec le boutton d'ajout
+         ajouterDisquette.setOnClickListener {
+             //afficher popup
+             discPopup(context).show()
+         }
+
         //recuperer le recycler view pour gerer la liste des disquettes
         val verticalRecyclerView = view.findViewById<RecyclerView>(R.id.vertical_recycler_view)
         //verticalRecyclerView.adapter = disqueAdapter(context, disqueList) //utile pour l'utilisation de glide
+        verticalRecyclerView.setHasFixedSize(true)
 
         verticalRecyclerView.layoutManager = LinearLayoutManager(activity) // important
         verticalRecyclerView.addItemDecoration(itemDisqueDecoration())
@@ -93,20 +106,18 @@ class Home(
         //a revoir
         val refresh: SwipeRefreshLayout = view.findViewById(R.id.refresh_fragment_home)
         refresh.setOnRefreshListener {
-            load(refresh.isRefreshing)
-
-            Handler().postDelayed({
+            Handler(Looper.getMainLooper()).postDelayed({
+                // Your Code
                 refresh.isRefreshing = false
                 verticalRecyclerView.adapter = adapter
                 Log.d(ContentValues.TAG, "Refresh: nombre de disque dans la liste:${disqueList.size}")
-            },2000)
+            }, 2000)
 
         }
 
 
         return view
     }
-
 
 
 

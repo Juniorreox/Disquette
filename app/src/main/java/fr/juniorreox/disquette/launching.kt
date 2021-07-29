@@ -1,9 +1,11 @@
 package fr.juniorreox.disquette
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.WindowInsets
@@ -21,10 +23,14 @@ import fr.juniorreox.disquette.modele.userModele
 import fr.juniorreox.disquette.repository.disqueRepository
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.User
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.disqueList
+import android.util.Pair
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 
 
 class launching: AppCompatActivity() {
-    private val SPLASH_TIME_OUT: Long = 6000
+    private val SPLASH_TIME_OUT: Long = 2000
     //token d'authentification
     private lateinit var auth: FirebaseAuth
     /*
@@ -72,6 +78,7 @@ class launching: AppCompatActivity() {
         } else {
             window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         }
+
         //cette activite est faite pour le chargement de la liste des disques, c'est pour cela qu'il utilise launching.xml
 /*
         //Les animations
@@ -95,6 +102,7 @@ class launching: AppCompatActivity() {
         logo = findViewById(R.id.app_image)
         //tag = findViewById(R.id.tagLine)
 
+
         //setting animations
         first.startAnimation(topAnimation)
         second.startAnimation(topAnimation2)
@@ -113,8 +121,6 @@ class launching: AppCompatActivity() {
     //au demarage
     override fun onStart() {
         super.onStart()
-
-
             auth = User
             //currentuser appeler dans le disque repository
             val currentUser = auth.currentUser
@@ -162,21 +168,14 @@ class launching: AppCompatActivity() {
     //gestion des utilisateurs
     private fun updateUI(currentUser: FirebaseUser?) {
         if (currentUser != null) {
-/*
-                Handler().postDelayed({
-                    val intent = Intent(this, MainActivity::class.java)
-                    //val intent = Intent(this, testActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    //si l'utilisateur n'est pas null charger sa version de la liste des disques
-                    Toast.makeText(this, "U Signed In successfully", Toast.LENGTH_LONG).show()
-                    //startActivity(Intent(this, AnotherActivity::class.java))
-                }, SPLASH_TIME_OUT)*/
 
-            val intent = Intent(this, MainActivity::class.java)
-            //val intent = Intent(this, testActivity::class.java)
-            startActivity(intent)
-            finish()
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                // Your Code
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }, SPLASH_TIME_OUT)
 
         } else {
             //ici on cree un compte anonyme pour tout nouvelle utilisateur

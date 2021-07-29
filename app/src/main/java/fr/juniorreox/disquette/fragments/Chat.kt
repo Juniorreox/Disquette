@@ -4,7 +4,9 @@ import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
@@ -24,6 +26,7 @@ import fr.juniorreox.disquette.repository.disqueRepository.singleton.databaseCha
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.thisUser
 import java.util.*
 
+
 class Chat : Fragment() {
     private val adapter  = chatAdapter()
 
@@ -34,25 +37,6 @@ class Chat : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = layoutInflater.inflate(R.layout.fragment_chat, container, false)
-
-        User.uid?.let {
-            disqueRepository.singleton.databaseUser.child(it).addValueEventListener(object :
-                ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-
-                        val name =  snapshot.getValue(userModele::class.java)
-                        if (name != null) {
-                            thisUser = name// faire gaff
-                        }
-
-
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    //TODO("Not yet implemented")
-                }
-            })
-        }
 
 
         val verticalRecyclerView = view.findViewById<RecyclerView>(R.id.vertical_recycler_view_chat)
@@ -114,6 +98,8 @@ class Chat : Fragment() {
 
 
         }
+
+
             return view
     }
 

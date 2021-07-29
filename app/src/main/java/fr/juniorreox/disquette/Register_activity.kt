@@ -11,6 +11,7 @@ import com.google.firebase.auth.EmailAuthProvider
 import fr.juniorreox.disquette.repository.disqueRepository
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.User
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.databaseUser
+import fr.juniorreox.disquette.repository.disqueRepository.singleton.storageRef
 
 class Register_activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +34,7 @@ class Register_activity : AppCompatActivity() {
             val username : String = register_username.text.toString()
             val email : String = register_email.text.toString()
             val pass : String = register_pass.text.toString()
+            val storageReference = storageRef.child("profile_image.jpg")
 
             if(username == ""){
                 Toast.makeText(this,"S'il vous plait veuillez entrez un pseudo", Toast.LENGTH_LONG).show()
@@ -56,7 +58,7 @@ class Register_activity : AppCompatActivity() {
                         userHashMap["mail"] = email
                         userHashMap["password"] = pass
                         userHashMap["hasSigned"] = true
-                        userHashMap["profile"] = "https://firebasestorage.googleapis.com/v0/b/disquette-b83fa.appspot.com/o/profile_image.jpg?alt=media&token=ab1ba168-aee3-42cd-aba5-77edfa3256d6"
+                        userHashMap["profile"] = "empty"
 
                         databaseUser.child(firebaseUserUid).updateChildren(userHashMap).addOnCompleteListener { task ->
                             if (task.isSuccessful) {

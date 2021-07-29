@@ -1,8 +1,11 @@
 package fr.juniorreox.disquette
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
@@ -34,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var chat : ImageView
     private lateinit var user : ImageView
     private lateinit var home : ImageView
-    private lateinit var ajouterDisquette : ImageView
+
 
     //a la creation
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,18 +68,10 @@ class MainActivity : AppCompatActivity() {
         chat = findViewById(R.id.chat_icon)
         user = findViewById(R.id.user_icon)
         home = findViewById(R.id.app_image)
-        ajouterDisquette = findViewById(R.id.add_image)
-
-        //gestion de de l'ajout avec le boutton d'ajout
-        ajouterDisquette.setOnClickListener {
-            //afficher popup
-            discPopup(this).show()
-        }
-
 
 
         //pager start
-//Initialisation des variables en lateinit
+        //Initialisation des variables en lateinit
         pagerView = findViewById(R.id.fragment_containner)
         tablayout = findViewById(R.id.tabview)
         tablayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -84,21 +79,17 @@ class MainActivity : AppCompatActivity() {
                 if(tab?.position ==0){
                     showSystemUI()
                     chat.setImageResource(R.drawable.mountain_on)
-                    ajouterDisquette.visibility = View.INVISIBLE
+                    user.setOnClickListener{
+                        pagerView.currentItem = 2
+                    }
 
                     home.setOnClickListener{
                         pagerView.currentItem = 1
-                    }
-
-                    user.setOnClickListener{
-                        pagerView.currentItem = 2
                     }
                 }
 
                 if(tab?.position ==1){
                     hideSystemUI()
-                    ajouterDisquette.visibility = View.VISIBLE
-
                     chat.setOnClickListener{
                         pagerView.currentItem = 0
                     }
@@ -111,7 +102,6 @@ class MainActivity : AppCompatActivity() {
                 if(tab?.position ==2){
                     hideSystemUI()
                     user.setImageResource(R.drawable.usercolor)
-                    ajouterDisquette.visibility = View.INVISIBLE
 
                     home.setOnClickListener{
                         pagerView.currentItem = 1
@@ -137,21 +127,17 @@ class MainActivity : AppCompatActivity() {
                 if(tab?.position ==0){
                     showSystemUI()
                     chat.setImageResource(R.drawable.mountain_on)
-                    ajouterDisquette.visibility = View.INVISIBLE
+                    user.setOnClickListener{
+                        pagerView.currentItem = 2
+                    }
 
                     home.setOnClickListener{
                         pagerView.currentItem = 1
-                    }
-
-                    user.setOnClickListener{
-                        pagerView.currentItem = 2
                     }
                 }
 
                 if(tab?.position ==1){
                     hideSystemUI()
-                    ajouterDisquette.visibility = View.VISIBLE
-
                     chat.setOnClickListener{
                         pagerView.currentItem = 0
                     }
@@ -164,7 +150,6 @@ class MainActivity : AppCompatActivity() {
                 if(tab?.position ==2){
                     hideSystemUI()
                     user.setImageResource(R.drawable.usercolor)
-                    ajouterDisquette.visibility = View.INVISIBLE
 
                     home.setOnClickListener{
                         pagerView.currentItem = 1
@@ -174,8 +159,6 @@ class MainActivity : AppCompatActivity() {
                         pagerView.currentItem = 0
                     }
                 }
-
-
             }
         })
         tablayout.setSelectedTabIndicatorColor(Color.parseColor("#d0e30e"))//la couleur duchangement de frangment dans le tab
@@ -184,7 +167,6 @@ class MainActivity : AppCompatActivity() {
         adapter.add { Chat() }//position 0
         adapter.add { Home(this) }//position 1
         adapter.add { profile() }//position 2
-
 
         val firebaseUserUid = User.currentUser!!.uid
 
@@ -206,12 +188,19 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
+                adapter.remove(2)
                 adapter.add { profile() }//position 2
+
             }
         })
 
+
         pagerView.adapter = adapter
-        pagerView.currentItem = 1 // position du fragment de depart: affichage horizontale [0 ; 1 ; 2 ]
+        Handler(Looper.getMainLooper()).postDelayed({
+            // Your Code
+            pagerView.setCurrentItem(1, false) // position du fragment de depart: affichage horizontale [0 ; 1 ; 2 ]
+        }, 100)
+
 
 
 
@@ -221,21 +210,24 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
+        val repo = disqueRepository()
+        repo.theUser()
+
         //NE PAS ENLEVER
         TabLayoutMediator(tablayout,pagerView
         ) { tab, position ->
             when (position) {
-                0 -> { //chat
+                0 -> { //Home
                     //modifie tab
-                }//fin chat
+                }//fin Home
 
-                1 -> {//home
+                1 -> {//User
                     //modifie tab
-                }//fin home
+                }//fin User
 
-                2 -> { //user
+                2 -> { //Chat
                     //modifie tab
-                }//fin user
+                }//fin Chat
             }
         }.attach()
     }

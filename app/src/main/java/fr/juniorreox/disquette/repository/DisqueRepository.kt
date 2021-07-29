@@ -1,15 +1,16 @@
 package fr.juniorreox.disquette.repository
 
-import android.content.ContentValues
+
 import android.content.ContentValues.TAG
-import android.os.Handler
+import android.net.Uri
 import android.util.Log
-import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.tasks.Continuation
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
-import fr.juniorreox.disquette.adapter.chatAdapter
-import fr.juniorreox.disquette.adapter.disqueAdapter
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.UploadTask
 import fr.juniorreox.disquette.modele.discAdminModele
 import fr.juniorreox.disquette.modele.disqueModele
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.Checked
@@ -23,7 +24,8 @@ import fr.juniorreox.disquette.repository.disqueRepository.singleton.lastElement
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.number
 import fr.juniorreox.disquette.modele.checkDisc
 import fr.juniorreox.disquette.modele.userModele
-import fr.juniorreox.disquette.repository.disqueRepository.singleton.databaseChat
+import fr.juniorreox.disquette.repository.disqueRepository.singleton.storageRef
+import fr.juniorreox.disquette.repository.disqueRepository.singleton.uri
 import java.util.*
 
 
@@ -31,6 +33,12 @@ class disqueRepository {
 
 
     object singleton {
+        //Lien pour acceder au bucket
+        private val Bucket_Url: String = "gs://disquette-b83fa.appspot.com/"
+
+        //on se connecte a l'espace de stockage
+        val storageRef = FirebaseStorage.getInstance().getReferenceFromUrl(Bucket_Url)
+
         // se connecter a la reference disque
         //mettre l'url de connexion
         private val database = FirebaseDatabase.getInstance("https://disquette-b83fa-default-rtdb.europe-west1.firebasedatabase.app/")
@@ -69,12 +77,52 @@ class disqueRepository {
         //l'identifiant du derniere element de la liste de disque utilisateur
         var lastElement: Int = 0
 
-        //Le nom d'utilisateur
-        lateinit var thisUser :userModele
+        //L'utilisateur
+         var thisUser :userModele = userModele()
 
+        //l'uri de telechargement d'image
+        var uri :Uri? = null
+    }
+    fun theUser(){
+        User.uid?.let {
+            disqueRepository.singleton.databaseUser.child(it).addValueEventListener(object :
+                ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+
+                    val name =  snapshot.getValue(userModele::class.java)
+                    if (name != null) {
+                        singleton.thisUser = name// faire gaff
+                    }
+
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    //TODO("Not yet implemented")
+                }
+            })
+        }
     }
 
+//fontion qui envoi les image sur le storrage
+    fun uploadImage(file : Uri?){
+    val fileName = UUID.randomUUID().toString() + "jpg"
+    val ref = storageRef.child(fileName)
+    val uploadtask = file?.let { ref.putFile(it) }
 
+    uploadtask?.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>>{task ->
+        if(!task.isSuccessful){
+            task.exception?.let { throw it }
+        }
+        return@Continuation ref.downloadUrl
+
+    })?.addOnCompleteListener {
+            task ->
+        if(task.isSuccessful){
+            uri = task.result
+        }
+    }
+    }
 
     fun getData() {
         //chargement des donnees de cette utilisateur
@@ -83,8 +131,7 @@ class disqueRepository {
                 ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) {
                     // Failed to read value
-                    Log.w(
-                        TAG, "Failed to read value.", p0.toException())
+                    Log.w(TAG, "Failed to read value.", p0.toException())
                 }
 
                 override fun onDataChange(p0: DataSnapshot) {
