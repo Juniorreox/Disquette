@@ -25,6 +25,7 @@ import fr.juniorreox.disquette.repository.disqueRepository.singleton.number
 import fr.juniorreox.disquette.modele.checkDisc
 import fr.juniorreox.disquette.modele.userModele
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.storageRef
+import fr.juniorreox.disquette.repository.disqueRepository.singleton.thisUser
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.uri
 import java.util.*
 
@@ -120,6 +121,7 @@ class disqueRepository {
             task ->
         if(task.isSuccessful){
             uri = task.result
+            thisUser.uid?.let { databaseUser.child(it).child("profile").setValue(uri.toString()) }
         }
     }
     }
@@ -298,6 +300,7 @@ class disqueRepository {
         })//fin de recuperation du contenu
 
     }
+    fun update() = updatelist()
 
     // Revoir code de cette fonction pour l'exces d'appel si s'en est call in getdata
     private fun updatelist() {

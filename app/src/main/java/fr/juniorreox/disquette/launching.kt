@@ -130,6 +130,15 @@ class launching: AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        auth = User
+        //currentuser appeler dans le disque repository
+        val currentUser = auth.currentUser
+        // Check if user is signed in (non-null) and update UI accordingly.
+        updateUI(currentUser)
+    }
+
 
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {

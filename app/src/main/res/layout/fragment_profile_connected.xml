@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/background_color2"
     android:orientation="vertical"
     android:id="@+id/constraint_fragment_profile">
 
@@ -41,7 +41,10 @@
 
             android:layout_toEndOf="@+id/card_picturre"
             android:layout_centerVertical="true"
-            android:layout_marginStart="10dp" />
+            android:layout_marginStart="10dp"
+            app:drawableEndCompat="@drawable/quillpen"
+            android:drawablePadding="10dp"
+            />
     </RelativeLayout>
 
 

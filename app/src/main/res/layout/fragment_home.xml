@@ -4,7 +4,7 @@
     android:id="@+id/constraint_layout_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color"
+    android:background="@color/background_color2"
     android:orientation="vertical">
 
 

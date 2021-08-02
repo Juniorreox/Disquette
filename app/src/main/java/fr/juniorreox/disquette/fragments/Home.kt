@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -42,12 +43,14 @@ class Home(
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         val repo = disqueRepository()
 
-        ajouterDisquette = view.findViewById<ImageView>(R.id.add_image) //ajouter disque
+        ajouterDisquette = view.findViewById(R.id.add_image) //ajouter disque
 
         //gestion de de l'ajout avec le boutton d'ajout
          ajouterDisquette.setOnClickListener {
              //afficher popup
-             discPopup(context).show()
+             val popUp = discPopup(context)
+             popUp.window?.setBackgroundDrawable(ActivityCompat.getDrawable(context, R.drawable.opacity)) // tres utile pour avoir la forme voulu du dialog
+             popUp.show()
          }
 
         //recuperer le recycler view pour gerer la liste des disquettes
@@ -91,14 +94,14 @@ class Home(
                                 adapter.addDisque(disque)
                             }
                         }
-
+                        adapter.notifyDataSetChanged()
                     }
 
                 }
 
             })
         }
-        adapter.sort()
+        //adapter.sort()
         verticalRecyclerView.adapter = adapter // ?
 
 
@@ -106,16 +109,16 @@ class Home(
         //a revoir
         val refresh: SwipeRefreshLayout = view.findViewById(R.id.refresh_fragment_home)
         refresh.setOnRefreshListener {
+
             Handler(Looper.getMainLooper()).postDelayed({
                 // Your Code
+                load(refresh.isRefreshing)
                 refresh.isRefreshing = false
-                verticalRecyclerView.adapter = adapter
-                Log.d(ContentValues.TAG, "Refresh: nombre de disque dans la liste:${disqueList.size}")
+                //verticalRecyclerView.adapter = adapter
+                //Log.d(ContentValues.TAG, "Refresh: nombre de disque dans la liste:${disqueList.size}")
             }, 2000)
 
         }
-
-
         return view
     }
 
@@ -124,7 +127,7 @@ class Home(
     private fun load(isRefreshed : Boolean){
         if(isRefreshed ){
             val repo= disqueRepository()
-            repo.getData()
+            repo.update()
 
         }
     }

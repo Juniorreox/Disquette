@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="150dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:background="@color/opacity"
+    >
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:contentPadding="10dp"
+        android:elevation="8dp"
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="@color/background_color2">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:id="@+id/title"
+                android:fontFamily="@font/baloo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Entrez votre nouveau pseudo :"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                />
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:elevation="30dp"
+                android:labelFor="@id/username"
+
+                android:autofillHints="@string/enter_your_message"
+                android:background="@drawable/et_style2"
+                android:inputType="textLongMessage|textMultiLine"
+                android:maxLength="500"
+                android:textColor="@color/black"
+                android:padding="10dp"
+                android:textAlignment="center"
+
+                android:drawableEnd="@drawable/send2"/>
+
+
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

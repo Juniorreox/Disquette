@@ -32,16 +32,16 @@
 
                 <ImageView
                     android:id="@+id/chat_icon"
-                    android:layout_width="25dp"
-                    android:layout_height="30dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_weight="1"
                     android:contentDescription="@string/name_chat"
                     android:src="@drawable/mountain" />
 
                 <ImageView
                     android:id="@+id/app_image"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_weight="1"
                     android:contentDescription="@string/name_disque"
                     android:src="@drawable/vinyl"
@@ -49,11 +49,12 @@
 
                 <ImageView
                     android:id="@+id/user_icon"
-                    android:layout_width="25dp"
-                    android:layout_height="30dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_weight="1"
                     android:contentDescription="@string/name_user"
-                    android:src="@drawable/user" />
+                    android:src="@drawable/user"
+                    />
 
             </LinearLayout>
 
@@ -73,7 +74,7 @@
             android:id="@+id/fragment_containner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background_color"
+            android:background="@color/white"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2"

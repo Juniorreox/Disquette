@@ -1,6 +1,5 @@
 package fr.juniorreox.disquette
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -12,6 +11,7 @@ import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
@@ -37,6 +37,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var chat : ImageView
     private lateinit var user : ImageView
     private lateinit var home : ImageView
+    private lateinit var cl: ConstraintLayout
+
+    private val myactivity : MainActivity = this
+
 
 
     //a la creation
@@ -45,35 +49,18 @@ class MainActivity : AppCompatActivity() {
         //cette activite gere la liste des disques c'est pour cela qu'elle utilise activity_main.xml
         setContentView(R.layout.activity_main)
 
-        @Suppress("DEPRECATION") //supprime la barre des methodes "depreciees"
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val controller = window.insetsController
-
-            if (controller != null) {
-                controller.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
-                controller.systemBarsBehavior =
-                        WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        suprressBar()
 
 
-            }
-        } else {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
-        }
-
-
-//Initialisation des imageview en lateinit
+        //Initialisation des variable en lateinit
         chat = findViewById(R.id.chat_icon)
         user = findViewById(R.id.user_icon)
         home = findViewById(R.id.app_image)
-
-
-        //pager start
-        //Initialisation des variables en lateinit
+        cl= findViewById(R.id.ConstraintLayout_activity_main)
         pagerView = findViewById(R.id.fragment_containner)
         tablayout = findViewById(R.id.tabview)
+
+
         tablayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 if(tab?.position ==0){
@@ -81,10 +68,12 @@ class MainActivity : AppCompatActivity() {
                     chat.setImageResource(R.drawable.mountain_on)
                     user.setOnClickListener{
                         pagerView.currentItem = 2
+
                     }
 
                     home.setOnClickListener{
                         pagerView.currentItem = 1
+
                     }
                 }
 
@@ -92,10 +81,13 @@ class MainActivity : AppCompatActivity() {
                     hideSystemUI()
                     chat.setOnClickListener{
                         pagerView.currentItem = 0
+
                     }
 
                     user.setOnClickListener{
                         pagerView.currentItem = 2
+
+
                     }
                 }
 
@@ -105,10 +97,12 @@ class MainActivity : AppCompatActivity() {
 
                     home.setOnClickListener{
                         pagerView.currentItem = 1
+
                     }
 
                     chat.setOnClickListener{
                         pagerView.currentItem = 0
+
                     }
                 }
             }
@@ -120,6 +114,7 @@ class MainActivity : AppCompatActivity() {
 
                 if(p0?.position ==2){
                     user.setImageResource(R.drawable.user)
+
                 }
             }
 
@@ -129,10 +124,12 @@ class MainActivity : AppCompatActivity() {
                     chat.setImageResource(R.drawable.mountain_on)
                     user.setOnClickListener{
                         pagerView.currentItem = 2
+
                     }
 
                     home.setOnClickListener{
                         pagerView.currentItem = 1
+
                     }
                 }
 
@@ -140,10 +137,12 @@ class MainActivity : AppCompatActivity() {
                     hideSystemUI()
                     chat.setOnClickListener{
                         pagerView.currentItem = 0
+
                     }
 
                     user.setOnClickListener{
                         pagerView.currentItem = 2
+
                     }
                 }
 
@@ -153,19 +152,21 @@ class MainActivity : AppCompatActivity() {
 
                     home.setOnClickListener{
                         pagerView.currentItem = 1
+
                     }
 
                     chat.setOnClickListener{
                         pagerView.currentItem = 0
+
                     }
                 }
             }
         })
-        tablayout.setSelectedTabIndicatorColor(Color.parseColor("#d0e30e"))//la couleur duchangement de frangment dans le tab
+        tablayout.setSelectedTabIndicatorColor(Color.parseColor("#DBDEC5"))//la couleur duchangement de frangment dans le tab
         adapter = pagerAdapter(supportFragmentManager, lifecycle)
 
         adapter.add { Chat() }//position 0
-        adapter.add { Home(this) }//position 1
+        adapter.add { Home(myactivity) }//position 1
         adapter.add { profile() }//position 2
 
         val firebaseUserUid = User.currentUser!!.uid
@@ -177,7 +178,7 @@ class MainActivity : AppCompatActivity() {
                     if (state != null) {
                         if(state){
                             adapter.remove(2)
-                            adapter.add { profile_connected() }//position 2
+                            adapter.add { profile_connected(myactivity) }//position 2
                         }else{
                             adapter.remove(2)
                             adapter.add { profile() }//position 2
@@ -204,6 +205,26 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    }
+
+    private fun suprressBar() {
+        @Suppress("DEPRECATION") //supprime la barre des methodes "depreciees"
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val controller = window.insetsController
+
+            if (controller != null) {
+                controller.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+                controller.systemBarsBehavior =
+                    WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+
+
+            }
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
     }
 
 

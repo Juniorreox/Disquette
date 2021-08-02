@@ -1,6 +1,8 @@
 package fr.juniorreox.disquette.fragments
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +12,7 @@ import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -46,7 +49,7 @@ class Chat : Fragment() {
         llm.reverseLayout = false   // item list sorting (new messages start from the bottom)
         verticalRecyclerView.layoutManager = llm
 
-        val btnSend = view.findViewById<ImageView>(R.id.add_message)
+
         val txtMessage = view.findViewById<EditText>(R.id.enter_message)
 
         //repo.getChat(adapter)
@@ -78,7 +81,7 @@ class Chat : Fragment() {
 
         verticalRecyclerView.adapter = adapter
 
-        btnSend.setOnClickListener {
+        txtMessage.onRightDrawableClicked {
             /*
             if(/* pas connecte*/){
                 //afficher un message vous devez etre connecter
@@ -103,6 +106,22 @@ class Chat : Fragment() {
             return view
     }
 
+    // A revoir, cette ligne n'est pas ok pourr les personnes aveugles
+    @SuppressLint("ClickableViewAccessibility")
+    fun EditText.onRightDrawableClicked(onClicked: (view: EditText) -> Unit) {
+        this.setOnTouchListener { v, event ->
+            var hasConsumed = false
+            if (v is EditText) {
+                if (event.x >= v.width - v.totalPaddingRight) {
+                    if (event.action == MotionEvent.ACTION_UP) {
+                        onClicked(this)
+                    }
+                    hasConsumed = true
+                }
+            }
+            hasConsumed
+        }
+    }
 
 }
 

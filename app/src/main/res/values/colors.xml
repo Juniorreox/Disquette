@@ -13,12 +13,13 @@
     <color name="menu_color">#b5bf6b</color>
     <color name="background_color">#5c5e4b</color>
     <color name="background_color_opacity">#7A5C5E4B</color>
+    <color name="background_color2">#DBDEC5</color>
     <color name="disque_color">#73755E</color>
     <color name="text_color">#d0e30e</color>
     <color name="inscription_color_input">#e9ebdc</color>
     <color name="inscription_color_button">#2bb964</color>
     <color name="opacity">#00000000</color>
-    <color name="solide_sender">#171714</color>
-    <color name="solide_receiver">#171714</color>
+    <color name="solide_sender">#454511</color>
+
 
 </resources>

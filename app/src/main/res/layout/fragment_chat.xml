@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color">
+    android:background="@color/background_color2">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vertical_recycler_view_chat"
@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="103dp"
         android:orientation="vertical"
-        android:background="@color/black"/>
+        android:background="@color/background_color2"/>
 
     <LinearLayout
         android:id="@+id/Linear_chat"
@@ -19,8 +19,8 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginBottom="53dp"
-        android:background="@color/black">
+        android:layout_marginBottom="52dp"
+        android:background="@color/background_color2">
 
         <EditText
             android:id="@+id/enter_message"
@@ -34,10 +34,12 @@
             android:hint="@string/enter_your_message"
             android:inputType="textLongMessage|textMultiLine"
             android:maxLength="500"
-            android:textColor="#FFFFFFFF"
-            android:textColorHint="@color/menu_color"
-            android:padding="10dp"/>
+            android:textColor="@color/black"
+            android:textColorHint="@color/background_color_opacity"
+            android:padding="10dp"
 
+            android:drawableEnd="@drawable/send"/>
+<!--
         <ImageView
             android:id="@+id/add_message"
             android:layout_width="50dp"
@@ -45,6 +47,7 @@
             android:contentDescription="@string/validate_message"
             android:src="@drawable/validate"
             />
+            -->
     </LinearLayout>
 
 

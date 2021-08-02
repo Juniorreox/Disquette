@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Disquette">
         <activity android:name=".Register_activity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+                  android:screenOrientation="portrait"/>
+
         <activity android:name=".Login_activity" />
 
         <activity android:name=".launching">

@@ -50,6 +50,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'
     //pour changer de fragment
     implementation("androidx.viewpager2:viewpager2:1.0.0")
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+        // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
     //fin ajout
 
@@ -59,7 +63,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
     //ligne suivante modifier ancienne:implementation 'com.google.firebase:firebase-database:19.2.1'
     implementation 'com.google.firebase:firebase-database-ktx:20.0.1'
     implementation 'com.google.firebase:firebase-database:20.0.1'

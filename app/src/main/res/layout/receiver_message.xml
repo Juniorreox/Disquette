@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:id="@+id/constraint_receiver"
+    android:orientation="vertical"
+    android:padding="5dp"
 
 
     android:layout_marginStart="5dp"
@@ -12,7 +14,7 @@
     android:layout_marginTop="5dp"
     android:maxHeight="400dp"
     android:maxWidth="320dp"
-    android:minWidth="100dp"
+    android:minWidth="120dp"
     android:minHeight="30dp"
     android:background="@drawable/bg_receiver_style"
     >
@@ -21,42 +23,35 @@
         android:id="@+id/sendername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:text="Receiver"
         android:textStyle="bold"
         android:textColor="@color/menu_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/time_message_r"
+        />
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="12h00"
-        android:textColor="@color/grey_opacity"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.94"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/content_message_r"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:maxWidth="270dp"
+            android:minWidth="50dp"
+            android:text="TextView"
+            android:padding="5dp"
+            android:textColor="@color/black"
+            />
 
-    <TextView
-        android:id="@+id/content_message_r"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:maxWidth="270dp"
-        android:minWidth="50dp"
-        android:text="TextView"
-        android:padding="5dp"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/time_message_r"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.281"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sendername"
-        app:layout_constraintVertical_bias="0.334" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/time_message_r"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12h00"
+            android:textColor="@color/grey_opacity"
+            />
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

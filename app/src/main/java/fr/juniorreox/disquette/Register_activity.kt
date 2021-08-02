@@ -39,6 +39,9 @@ class Register_activity : AppCompatActivity() {
             if(username == ""){
                 Toast.makeText(this,"S'il vous plait veuillez entrez un pseudo", Toast.LENGTH_LONG).show()
 
+            }else if(username.length > 15){
+                Toast.makeText(this,"Le pseudo est trop long !", Toast.LENGTH_LONG).show()
+
             }else if(email ==""){
                 Toast.makeText(this,"S'il vous plait veuillez entrez une adresse mail", Toast.LENGTH_LONG).show()
 

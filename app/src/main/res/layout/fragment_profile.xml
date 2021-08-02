@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/background_color2"
     android:padding="30dp"
     android:id="@+id/constraint_fragment_profile">
 
@@ -71,7 +71,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/white"
+            android:background="@color/background_color2"
             android:gravity="center"
             android:layout_weight="1"
             >
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/baloo"
                 android:text="@string/menu_profile_Terms"
-                android:textColor="@color/grey"
+                android:textColor="@color/background_color_opacity"
                 android:textSize="24sp" />
         </RelativeLayout>
 
