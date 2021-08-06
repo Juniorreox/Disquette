@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import fr.juniorreox.disquette.*
+import fr.juniorreox.disquette.popup.namePopup
 import fr.juniorreox.disquette.repository.disqueRepository
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.thisUser
 

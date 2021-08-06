@@ -1,4 +1,4 @@
-package fr.juniorreox.disquette
+package fr.juniorreox.disquette.popup
 
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -7,12 +7,15 @@ import android.view.MotionEvent
 import android.view.Window
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
+import fr.juniorreox.disquette.MainActivity
+import fr.juniorreox.disquette.R
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.databaseUser
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.thisUser
 
 class namePopup(
     context: MainActivity,
-   private val name: TextView
+    private val name: TextView
 )
 : Dialog(context) {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,13 +27,14 @@ class namePopup(
 
         namechanged.onRightDrawableClicked {
             val username = namechanged.text.toString().trim { it <= ' ' }
-            name.text = username
-            thisUser.uid?.let { databaseUser.child(it).child("userName").setValue(username) }
-            dismiss()
-
+            if(username.length > 15){
+                Toast.makeText(context,"Le pseudo est trop long !", Toast.LENGTH_LONG).show()
+            }else{
+                name.text = username
+                thisUser.uid?.let { databaseUser.child(it).child("userName").setValue(username) }
+                dismiss()
+            }
         }
-
-
     }
 
     @SuppressLint("ClickableViewAccessibility")

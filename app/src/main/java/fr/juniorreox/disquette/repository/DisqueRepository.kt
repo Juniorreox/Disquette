@@ -24,6 +24,8 @@ import fr.juniorreox.disquette.repository.disqueRepository.singleton.lastElement
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.number
 import fr.juniorreox.disquette.modele.checkDisc
 import fr.juniorreox.disquette.modele.userModele
+import fr.juniorreox.disquette.repository.disqueRepository.singleton.adminContain
+import fr.juniorreox.disquette.repository.disqueRepository.singleton.anUser
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.storageRef
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.thisUser
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.uri
@@ -78,8 +80,14 @@ class disqueRepository {
         //l'identifiant du derniere element de la liste de disque utilisateur
         var lastElement: Int = 0
 
-        //L'utilisateur
+        //L'utilisateur actuel
          var thisUser :userModele = userModele()
+
+        //un utilisateur
+         var anUser :userModele = userModele()
+
+        //contenu admin
+        var adminContain = arrayListOf<discAdminModele>()
 
         //l'uri de telechargement d'image
         var uri :Uri? = null
@@ -92,7 +100,7 @@ class disqueRepository {
 
                     val name =  snapshot.getValue(userModele::class.java)
                     if (name != null) {
-                        singleton.thisUser = name// faire gaff
+                        thisUser = name// faire gaff
                     }
 
 
@@ -103,6 +111,35 @@ class disqueRepository {
                 }
             })
         }
+    }
+
+    fun theAdminContain(){
+
+            databaseDisc.child("admin").addValueEventListener(object :
+                ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    adminContain.clear()
+                    for (ds in snapshot.children) {
+                        //construire un objet disque
+                        val disque = ds.getValue(discAdminModele::class.java)
+                        //Verifier que le disque n'est pas null
+                        if (disque != null && disque.id !="0" ) {
+                            //ajouter le disque a notre liste
+                            adminContain.add(disque)
+                        }
+                    }
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    //TODO("Not yet implemented")
+                }
+            })
+
+    }
+
+    fun deletediscAdmin(disc :disqueModele){
+        databaseDisc.child("admin").child(disc.id!!).removeValue()
     }
 
 //fontion qui envoi les image sur le storrage
@@ -252,14 +289,11 @@ class disqueRepository {
         users.uid?.let { databaseUser.child(it).setValue(users) }
 
     fun addUser() {
-        val user = userModele(User.currentUser?.uid)
-        insertuser(user)
-        //recuperer le contenu des differents disques et les ajouter dans l'espace disque utilisitateur avec les valeur par defaut du disque
-        /*
-        Handler().postDelayed({
-            addListDisc()
-        }, 4000)
-*/
+        val user = User.currentUser?.uid?.let { userModele(it) }
+        if (user != null) {
+            insertuser(user)
+        }
+
     }
 
     fun addListDisc() {
@@ -311,21 +345,28 @@ class disqueRepository {
             databaseDisc.child(uid)
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(p0: DataSnapshot) {
-                        Checked.clear()
-                        //recolter la liste
-                        //le handler permet d'attendre 4 seconde le temps de charger la liste
-                        for (ds in p0.children) {
-                            //construire un objet disque
-                            val discUser = ds.getValue(disqueModele::class.java)
-                            Log.d(TAG, "updatelist: user disc is: $discUser")
-                            //Verifier que le disque n'est pas null
-                            discUser?.identifiant?.let { it1 -> Checked.add(checkDisc(it1)) }
+                        if(p0.exists()){
+                            Checked.clear()
+                            //recolter la liste
+                            //le handler permet d'attendre 4 seconde le temps de charger la liste
+                            for (ds in p0.children) {
+                                //construire un objet disque
+                                val discUser = ds.getValue(disqueModele::class.java)
+                                Log.d(TAG, "updatelist: user disc is: $discUser")
+                                //Verifier que le disque n'est pas null
+                                discUser?.identifiant?.let { it1 -> Checked.add(checkDisc(it1)) }
+                            }
+                            //Checked.sortedByDescending { it.idDisc }
+                            Checked.sortBy { it.idDisc }
+                            Log.d(TAG, "updateliste: La taille de Checked est : ${Checked.size} ")
+                            lastElement =
+                                Checked.lastOrNull()?.idDisc ?: //recupere l'id du derniere element null si la liste est vide0
+                                        Log.d(TAG, "updateliste: (1) le derniere element est : $lastElement " )
+                        }else{
+                            if( countAdmin > 0) {
+                                addListDisc()
+                            }
                         }
-                        //Checked.sortedByDescending { it.idDisc }
-                        Checked.sortBy { it.idDisc }
-                        Log.d(TAG, "updateliste: La taille de Checked est : ${Checked.size} ")
-                        lastElement = Checked.last().idDisc //recupere l'id du derniere element
-                        Log.d(TAG, "updateliste: (1) le derniere element est : $lastElement ")
                     }
 
                     override fun onCancelled(databaseError: DatabaseError) {

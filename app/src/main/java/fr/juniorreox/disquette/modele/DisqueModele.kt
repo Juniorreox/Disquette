@@ -11,9 +11,7 @@ class disqueModele(
         var favori: Boolean = false,
         var identifiant: Int = 0,
         var like_number: String = "0",
-        var like_state: Boolean = false,
-        var time: Long? =null
-
+        var like_state: Boolean = false
 )
 
 

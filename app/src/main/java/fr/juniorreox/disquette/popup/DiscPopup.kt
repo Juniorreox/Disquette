@@ -1,4 +1,4 @@
-package fr.juniorreox.disquette
+package fr.juniorreox.disquette.popup
 
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -9,12 +9,16 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.Window
 import android.widget.EditText
+import fr.juniorreox.disquette.MainActivity
+import fr.juniorreox.disquette.R
 import fr.juniorreox.disquette.modele.discAdminModele
 import fr.juniorreox.disquette.repository.disqueRepository
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.countAdmin
+import fr.juniorreox.disquette.repository.disqueRepository.singleton.thisUser
 
 class discPopup(
-    context: MainActivity)
+    context: MainActivity
+)
     : Dialog(context) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,12 +36,13 @@ class discPopup(
          add.onRightDrawableClicked {
              if (add.text.isNotEmpty()) {
                  val disc = add.text.toString().trim { it <= ' ' }
-                 val newDisc = discAdminModele(disc, "0", "0")
+                 val newDisc = thisUser.uid?.let { it1 -> discAdminModele(disc, "0", "0",idSender= it1 )}
                  Log.d(ContentValues.TAG, " The contain of the disc with the trim  is: $disc")
-                 repo.updateDisqueAdmin(newDisc)
+                 if (newDisc != null) {
+                     repo.updateDisqueAdmin(newDisc)
+                 }
                  countAdmin += 1
                  dismiss()
-
              }
          }
 

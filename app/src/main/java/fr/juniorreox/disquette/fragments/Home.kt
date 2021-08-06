@@ -1,7 +1,6 @@
 package fr.juniorreox.disquette.fragments
 
 import android.content.ContentValues
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -22,17 +21,17 @@ import fr.juniorreox.disquette.*
 import fr.juniorreox.disquette.adapter.disqueAdapter
 import fr.juniorreox.disquette.adapter.itemDisqueDecoration
 import fr.juniorreox.disquette.modele.disqueModele
+import fr.juniorreox.disquette.popup.discPopup
 import fr.juniorreox.disquette.repository.disqueRepository
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.User
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.countAdmin
 import fr.juniorreox.disquette.repository.disqueRepository.singleton.databaseDisc
-import fr.juniorreox.disquette.repository.disqueRepository.singleton.disqueList
 
 
 class Home(
     private val context: MainActivity
 ) : Fragment() {
-    private val adapter = disqueAdapter()
+    private val adapter = disqueAdapter(context)
     private lateinit var ajouterDisquette : ImageView
 
     override fun onCreateView(
@@ -119,7 +118,9 @@ class Home(
             }, 2000)
 
         }
+
         return view
+
     }
 
 

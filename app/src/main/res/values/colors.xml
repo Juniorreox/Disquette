@@ -20,6 +20,7 @@
     <color name="inscription_color_button">#2bb964</color>
     <color name="opacity">#00000000</color>
     <color name="solide_sender">#454511</color>
+    <color name="red">#F00707</color>
 
 
 </resources>

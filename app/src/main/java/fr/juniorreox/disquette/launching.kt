@@ -27,6 +27,7 @@ import android.util.Pair
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import fr.juniorreox.disquette.repository.disqueRepository.singleton.databaseUser
 
 
 class launching: AppCompatActivity() {
@@ -67,17 +68,7 @@ class launching: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.launching) //initialiser les lateinit var apres cette ligne de code, elle permet d avoir acces aux element contenu dans le layout utilise par leurs identifiants
-        @Suppress("DEPRECATION") //supprime la barre des methodes "depreciees"
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val controller = window.insetsController
 
-            if(controller != null) {
-                controller.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
-                controller.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-            }
-        } else {
-            window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        }
 
         //cette activite est faite pour le chargement de la liste des disques, c'est pour cela qu'il utilise launching.xml
 /*
@@ -118,17 +109,6 @@ class launching: AppCompatActivity() {
 
     }
 
-    //au demarage
-    override fun onStart() {
-        super.onStart()
-            auth = User
-            //currentuser appeler dans le disque repository
-            val currentUser = auth.currentUser
-            // Check if user is signed in (non-null) and update UI accordingly.
-            updateUI(currentUser)
-
-
-    }
 
     override fun onResume() {
         super.onResume()
@@ -144,32 +124,29 @@ class launching: AppCompatActivity() {
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         if (hasFocus)
-            hideSystemUI()
+            hideToolBr()
     }
 
-    private fun hideSystemUI() {
-        @Suppress("DEPRECATION") //supprime la barre des methodes "depreciees"
-        // Enables regular immersive mode.
-        // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
-        // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-        window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                // Set the content to appear under the system bars so that the
-                // content doesn't resize when the system bars hide and show.
-                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                // Hide the nav bar and status bar
-                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_FULLSCREEN)
-    }
+    private fun hideToolBr() {
 
-    // Shows the system bars by removing all the flags
-// except for the ones that make the content appear under the system bars.
-    private fun showSystemUI() {
-        @Suppress("DEPRECATION") //supprime la barre des methodes "depreciees"
-        window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+        // BEGIN_INCLUDE (get_current_ui_flags)
+        // The UI options currently enabled are represented by a bitfield.
+        // getSystemUiVisibility() gives us that bitfield.
+        val uiOptions = window.decorView.systemUiVisibility
+        var newUiOptions = uiOptions
+        // END_INCLUDE (get_current_ui_flags)
+        // BEGIN_INCLUDE (toggle_ui_flags)
+        val isImmersiveModeEnabled = uiOptions or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY == uiOptions
+
+        // Navigation bar hiding:  Backwards compatible to ICS.
+        newUiOptions = newUiOptions xor View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+
+        // Status bar hiding: Backwards compatible to Jellybean
+        newUiOptions = newUiOptions xor View.SYSTEM_UI_FLAG_FULLSCREEN
+
+        newUiOptions = newUiOptions xor View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        window.decorView.systemUiVisibility = newUiOptions
+        //END_INCLUDE (set_ui_flags)
     }
 
 
@@ -180,6 +157,10 @@ class launching: AppCompatActivity() {
 
 
             Handler(Looper.getMainLooper()).postDelayed({
+                val repo = disqueRepository()
+                repo.theUser()
+                repo.theAdminContain() //faire gaff pendant l'ecriture des regle de securite de verrrouiller l'acces en ecriture
+
                 // Your Code
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
@@ -194,7 +175,7 @@ class launching: AppCompatActivity() {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("TAG", "signInAnonymously:success")
                         val user = userModele(User.currentUser?.uid)
-                        user.uid?.let { disqueRepository.singleton.databaseUser.child(it).setValue(user).addOnCompleteListener { task ->
+                        user.uid?.let { databaseUser.child(it).setValue(user).addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 val repo = disqueRepository()
                                 repo.addListDisc()

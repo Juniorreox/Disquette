@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-typealias FragmentBuilder = () -> Fragment //cette ligne transforme cette classe en java.class
+typealias FragmentBuilder = () -> Fragment
 
 class pagerAdapter(
     fragmentManager: FragmentManager,

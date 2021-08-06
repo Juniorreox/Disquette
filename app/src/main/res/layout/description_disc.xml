@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:background="@color/opacity"
+    >
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:contentPadding="5dp"
+        android:elevation="8dp"
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="@color/background_color2">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:padding="20dp"
+                >
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/card_picturre"
+                    >
+
+                    <ImageView
+                        android:id="@+id/picture_desc"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/profile_picture"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/profile_image" />
+                </androidx.cardview.widget.CardView>
+
+
+                <TextView
+                    android:id="@+id/userName_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/bungee"
+                    android:text="..."
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:includeFontPadding="false"
+
+                    android:layout_toEndOf="@+id/card_picturre"
+
+                    android:layout_marginStart="10dp"
+                    android:drawablePadding="10dp"
+                    />
+
+
+            </RelativeLayout>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
+                <TextView
+                    android:id="@+id/containUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/description_disque"
+                    android:layout_gravity="center"/>
+            </ScrollView>
+
+        </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

@@ -105,7 +105,6 @@
                 android:fontFamily="@font/baloo"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:inputType="textLongMessage|textMultiLine"
                 android:maxWidth="240dp"
                 android:minWidth="20dp"
                 android:text="@string/container_disque"

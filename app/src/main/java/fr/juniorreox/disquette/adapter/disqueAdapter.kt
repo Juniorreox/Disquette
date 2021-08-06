@@ -5,21 +5,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.RecyclerView
 import fr.juniorreox.disquette.*
 import fr.juniorreox.disquette.modele.disqueModele
-import fr.juniorreox.disquette.modele.messageModele
+import fr.juniorreox.disquette.popup.description_disc
 import fr.juniorreox.disquette.repository.disqueRepository
 
 
-class disqueAdapter(
-) : RecyclerView.Adapter<disqueAdapter.ViewHolder>(){
+class disqueAdapter(context: MainActivity) : RecyclerView.Adapter<disqueAdapter.ViewHolder>(){
 
+    val contextAdapter: MainActivity = context
     private var list =  ArrayList<disqueModele>()
 
-    interface OnItemClick {
-        fun onClick(bean: disqueModele, type: Int)
-    }
 
     fun addDisque(disc: disqueModele){
         list.add(disc)
@@ -35,10 +33,7 @@ class disqueAdapter(
         list.clear()
         notifyDataSetChanged()
     }
-    fun sort(){
-        list.sortedByDescending { it.identifiant }
-        notifyDataSetChanged()
-    }
+
 
     //Boite pour ranger tout les composants a controler
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -205,6 +200,12 @@ class disqueAdapter(
             }
             //mise a jour de la base de donnee
             repo.insertDisc(currentDisc)
+        }
+
+        holder.itemView.setOnClickListener{
+            val popUp = description_disc(this,currentDisc)
+            popUp.window?.setBackgroundDrawable(ActivityCompat.getDrawable(contextAdapter, R.drawable.opacity)) // tres utile pour avoir la forme voulu du dialog
+            popUp.show()
         }
 
 
